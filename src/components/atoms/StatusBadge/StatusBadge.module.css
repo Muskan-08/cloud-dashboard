@@ -1,0 +1,13 @@
+.statusText {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.statusTextSmall {
+  font-size: 12px;
+}
+
+.statusTextDefault {
+  font-size: 14px;
+}
