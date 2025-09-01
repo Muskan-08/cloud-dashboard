@@ -1,10 +1,10 @@
 import React from 'react';
-import { Drawer, List, Button, Typography, Empty, Badge, Space } from 'antd';
-import { BellOutlined, ClearOutlined } from '@ant-design/icons';
+import { Drawer } from 'antd';
 import { Notification } from '../../types';
-import NotificationItem from '../molecules/NotificationItem';
-
-const { Title } = Typography;
+import NotificationHeader from '../molecules/NotificationHeader/NotificationHeader';
+import NotificationGroup from '../molecules/NotificationGroup/NotificationGroup';
+import EmptyNotifications from '../atoms/EmptyNotifications/EmptyNotifications';
+import styles from './NotificationPanel.module.css';
 
 interface NotificationPanelProps {
   visible: boolean;
@@ -34,65 +34,42 @@ const NotificationPanel: React.FC<NotificationPanelProps> = ({
     return groups;
   }, {} as Record<string, Notification[]>);
 
+  const renderContent = () => {
+    if (notifications.length === 0) {
+      return <EmptyNotifications />;
+    }
+
+    return (
+      <div className={styles.content}>
+        {Object.entries(groupedNotifications).map(([date, dayNotifications]) => (
+          <NotificationGroup
+            key={date}
+            date={date}
+            notifications={dayNotifications}
+            onDismiss={onDismiss}
+            onMarkAsRead={onMarkAsRead}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <Drawer
       title={
-        <Space>
-          <BellOutlined />
-          <span>Notifications</span>
-          {unreadCount > 0 && (
-            <Badge count={unreadCount} size="small" />
-          )}
-        </Space>
+        <NotificationHeader
+          unreadCount={unreadCount}
+          hasNotifications={notifications.length > 0}
+          onClearAll={onClearAll}
+        />
       }
       placement="right"
       width={400}
       onClose={onClose}
       open={visible}
-      extra={
-        <Button 
-          type="text" 
-          icon={<ClearOutlined />} 
-          onClick={onClearAll}
-          disabled={notifications.length === 0}
-        >
-          Clear All
-        </Button>
-      }
+      className={styles.drawer}
     >
-      {notifications.length === 0 ? (
-        <Empty
-          description="No notifications"
-          image={Empty.PRESENTED_IMAGE_SIMPLE}
-        />
-      ) : (
-        <div style={{ height: '100%', overflow: 'auto' }}>
-          {Object.entries(groupedNotifications).map(([date, dayNotifications]) => (
-            <div key={date} style={{ marginBottom: '24px' }}>
-              <Title level={5} style={{ marginBottom: '12px', color: '#666' }}>
-                {new Date(date).toLocaleDateString('en-US', { 
-                  weekday: 'long', 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric' 
-                })}
-              </Title>
-              
-              <List
-                dataSource={dayNotifications}
-                renderItem={(notification) => (
-                  <NotificationItem
-                    notification={notification}
-                    onDismiss={onDismiss}
-                    onMarkAsRead={onMarkAsRead}
-                  />
-                )}
-                style={{ backgroundColor: '#fff' }}
-              />
-            </div>
-          ))}
-        </div>
-      )}
+      {renderContent()}
     </Drawer>
   );
 };

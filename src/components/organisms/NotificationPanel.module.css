@@ -1,0 +1,11 @@
+.drawer {
+  /* Custom drawer styles if needed */
+}
+
+.content {
+  height: 100%;
+  overflow: auto;
+  padding: 0 8px;
+}
+
+

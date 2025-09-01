@@ -8,6 +8,7 @@ interface DashboardState {
   stats: DashboardStats;
   loading: boolean;
   error: string | null;
+  showNotifications: boolean;
 }
 
 const initialState: DashboardState = {
@@ -23,8 +24,9 @@ const initialState: DashboardState = {
     averageCpu: 0,
     averageMemory: 0,
   },
-  loading: false,
+  loading: true, // Start with loading true
   error: null,
+  showNotifications: false,
 };
 
 const dashboardSlice = createSlice({
@@ -33,7 +35,6 @@ const dashboardSlice = createSlice({
   reducers: {
     setServers: (state, action: PayloadAction<Server[]>) => {
       state.servers = action.payload;
-      state.loading = false;
     },
     setNotifications: (state, action: PayloadAction<Notification[]>) => {
       state.notifications = action.payload;
@@ -50,6 +51,16 @@ const dashboardSlice = createSlice({
     dismissNotification: (state, action: PayloadAction<string>) => {
       state.notifications = state.notifications.filter(n => n.id !== action.payload);
     },
+    toggleServerStatus: (state, action: PayloadAction<{ serverName: string; status: boolean }>) => {
+      state.servers = state.servers.map(server => 
+        server.name === action.payload.serverName
+          ? { ...server, status: action.payload.status ? 'online' : 'offline' }
+          : server
+      );
+    },
+    setShowNotifications: (state, action: PayloadAction<boolean>) => {
+      state.showNotifications = action.payload;
+    },
     setFilters: (state, action: PayloadAction<SearchFilters>) => {
       state.filters = { ...state.filters, ...action.payload };
     },
@@ -60,6 +71,7 @@ const dashboardSlice = createSlice({
       state.stats = action.payload;
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
+      console.log('Setting loading state to:', action.payload);
       state.loading = action.payload;
     },
     setError: (state, action: PayloadAction<string | null>) => {
@@ -79,6 +91,8 @@ export const {
   setStats,
   setLoading,
   setError,
+  toggleServerStatus,
+  setShowNotifications
 } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;

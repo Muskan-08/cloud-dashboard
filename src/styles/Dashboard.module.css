@@ -1,0 +1,67 @@
+.topBar {
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+.mainLayout {
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.sideNav {
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 64px;
+  bottom: 0;
+  overflow: auto;
+}
+
+.contentSection {
+  padding: 24px;
+  overflow: auto;
+  height: 100%;
+}
+
+.contentWrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.notificationCard {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.notificationContent {
+  display: block;
+  margin-top: 4px;
+}
+
+.serverCard {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.serverStatus {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.metricRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}

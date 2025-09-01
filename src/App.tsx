@@ -1,31 +1,25 @@
 import React from 'react';
 import { ConfigProvider } from 'antd';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
-import { ThemeProvider, useTheme } from './contexts/ThemeContext';
+import ServerOverview from './pages/ServerOverview';
+import ScrollToTop from './components/atoms/ScrollToTop/ScrollToTop';
 import './App.css';
 
-const ThemedApp: React.FC = () => {
-  const { themeConfig, theme } = useTheme();
-
+const App: React.FC = () => {
   return (
-    <ConfigProvider
-      theme={{
+    <Router>
+      <ConfigProvider
+        theme={{
         token: {
-          colorPrimary: themeConfig.colorPrimary,
+          colorPrimary: '#1890ff',
           borderRadius: 6,
           fontFamily: 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
-          colorBgContainer: themeConfig.colorBgContainer,
-          colorBgElevated: themeConfig.colorBgElevated,
-          colorBorder: themeConfig.colorBorder,
-          colorText: themeConfig.colorText,
-          colorTextSecondary: themeConfig.colorTextSecondary,
         },
         components: {
           Card: {
             borderRadiusLG: 8,
-            boxShadowTertiary: theme === 'dark' 
-              ? '0 2px 8px rgba(0,0,0,0.3)' 
-              : '0 2px 8px rgba(0,0,0,0.1)',
+            boxShadowTertiary: '0 2px 8px rgba(0,0,0,0.1)',
           },
           Button: {
             borderRadius: 6,
@@ -36,24 +30,17 @@ const ThemedApp: React.FC = () => {
           Select: {
             borderRadius: 6,
           },
-          Layout: {
-            colorBgHeader: themeConfig.colorBgHeader,
-            colorBgContainer: themeConfig.colorBgContainer,
-          },
         },
       }}
     >
-      <Dashboard />
-    </ConfigProvider>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/servers" element={<ServerOverview />} />
+        </Routes>
+        <ScrollToTop />
+      </ConfigProvider>
+    </Router>
   );
 };
-
-function App() {
-  return (
-    <ThemeProvider>
-      <ThemedApp />
-    </ThemeProvider>
-  );
-}
 
 export default App;

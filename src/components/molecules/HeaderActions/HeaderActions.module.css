@@ -1,0 +1,16 @@
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.refreshButton,
+.notificationButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notificationButton {
+  padding: 4px 8px;
+  height: 40px;
+}

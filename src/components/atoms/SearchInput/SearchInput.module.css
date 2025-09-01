@@ -1,0 +1,22 @@
+.searchWrapper {
+  position: relative;
+  /* width: 300px; */
+}
+
+.searchInput {
+  border-radius: 6px;
+}
+
+.searchInput:hover {
+  border-color: #40a9ff;
+}
+
+.searchIcon {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+@media (max-width: 768px) {
+  .searchWrapper {
+    width: 100%;
+  }
+}

@@ -1,0 +1,17 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.details,
+.metrics {
+  font-size: 12px;
+  color: #666;
+}
+
+.metrics {
+  text-align: right;
+}
+
+
