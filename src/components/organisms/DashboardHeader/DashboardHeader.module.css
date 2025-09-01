@@ -26,6 +26,10 @@
   font-weight: 600;
 }
 
+.linkServerButton {
+  margin-right: 16px;
+}
+
 .filterMenu {
   padding: 8px;
 }

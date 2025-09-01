@@ -10,11 +10,11 @@ import {
   ResponsiveContainer,
   AreaChart,
 } from 'recharts';
-import { ResourceMetrics } from '../../types';
+import { ResourceMetrics } from '../../../types';
 import dayjs from 'dayjs';
-import ChartHeader from '../molecules/ChartHeader/ChartHeader';
-import MetricLine from '../molecules/MetricLine/MetricLine';
-import MetricArea from '../molecules/MetricArea/MetricArea';
+import ChartHeader from '../../molecules/ChartHeader/ChartHeader';
+import MetricLine from '../../molecules/MetricLine/MetricLine';
+import MetricArea from '../../molecules/MetricArea/MetricArea';
 import styles from './ServerMetricsChart.module.css';
 
 interface ServerMetricsChartProps {
@@ -66,9 +66,9 @@ const ServerMetricsChart: React.FC<ServerMetricsChartProps> = ({
         <XAxis
           dataKey="timestamp"
           tickFormatter={formatTimestamp}
-          style={{ fontSize: '12px' }}
+          className={styles.axisLabel}
         />
-        <YAxis domain={[0, 100]} style={{ fontSize: '12px' }} />
+        <YAxis domain={[0, 100]} className={styles.axisLabel} />
         <Tooltip
           labelFormatter={formatTimestamp}
           formatter={formatTooltip}

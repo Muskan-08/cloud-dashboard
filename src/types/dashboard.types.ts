@@ -6,6 +6,7 @@ export interface DashboardStats {
   totalAlerts: number;
   averageCpu: number;
   averageMemory: number;
+  uptime: number; // in percentage
 }
 
 export interface SearchFilters {

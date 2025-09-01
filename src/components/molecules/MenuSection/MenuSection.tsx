@@ -35,7 +35,6 @@ const MenuSection: React.FC<MenuSectionProps> = ({
         navigate('/servers');
         break;
       default:
-        // For other routes that haven't been implemented yet
         break;
     }
   };

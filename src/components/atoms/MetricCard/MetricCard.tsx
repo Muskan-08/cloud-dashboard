@@ -14,20 +14,26 @@ const MetricCard: React.FC<MetricCardProps> = ({
   size = 'default',
 }) => {
   const getIcon = () => {
-    if (icon) return icon;
-    
-    switch (title.toLowerCase()) {
-      case 'cpu':
-        return <CloudServerOutlined />;
-      case 'memory':
-        return <DatabaseOutlined />;
-      case 'disk':
-        return <HddOutlined />;
-      case 'network':
-        return <GlobalOutlined />;
-      default:
-        return <CloudServerOutlined />;
+    if (icon && React.isValidElement(icon)) {
+      return React.cloneElement(icon, { style: { color } });
     }
+    
+    const IconComponent = (() => {
+      switch (title.toLowerCase()) {
+        case 'cpu':
+          return CloudServerOutlined;
+        case 'memory':
+          return DatabaseOutlined;
+        case 'disk':
+          return HddOutlined;
+        case 'network':
+          return GlobalOutlined;
+        default:
+          return CloudServerOutlined;
+      }
+    })();
+    
+    return <IconComponent style={{ color }} />;
   };
 
   const getProgressColor = (value: number) => {
@@ -59,12 +65,11 @@ const MetricCard: React.FC<MetricCardProps> = ({
   return (
     <Card
       size={size}
-      className={getCardClassName()}
-      bodyStyle={{ padding: 0 }}
+      className={`${getCardClassName()} ${styles.cardBody}`}
     >
       <div className={getBodyClassName()}>
         <div className={styles.header}>
-          <span style={{ color }} className={getIconClassName()}>
+          <span className={`${getIconClassName()} ${styles.icon}`}>
             {getIcon()}
           </span>
           <span className={getTitleClassName()}>

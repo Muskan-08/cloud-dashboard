@@ -18,7 +18,7 @@ describe('dashboardSlice', () => {
     id: '1',
     name: 'test-server',
     status: 'online',
-    region: 'us-east-1',
+    region: 'us-north-1',
     account: 'production',
     cpu: 50,
     memory: 60,
@@ -45,6 +45,7 @@ describe('dashboardSlice', () => {
     totalAlerts: 1,
     averageCpu: 50,
     averageMemory: 60,
+    uptime: 0
   }
 
   it('should return the initial state', () => {
@@ -99,7 +100,7 @@ describe('dashboardSlice', () => {
 
   it('should handle setFilters', () => {
     const initialState = { filters: {} } as any
-    const filters = { status: 'online', region: 'us-east-1' }
+    const filters = { status: 'online', region: 'us-north-1' }
     const nextState = dashboardReducer(initialState, setFilters(filters))
     expect(nextState.filters).toEqual(filters)
   })

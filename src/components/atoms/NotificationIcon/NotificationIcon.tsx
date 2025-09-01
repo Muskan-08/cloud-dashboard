@@ -12,15 +12,15 @@ const NotificationIcon: React.FC<NotificationIconProps> = ({ type, unread = fals
   const getIcon = () => {
     switch (type) {
       case 'success':
-        return <CheckOutlined className={styles.icon} style={{ color: '#52c41a' }} />;
+        return <CheckOutlined className={`${styles.icon} ${styles.iconGreen}`} />;
       case 'warning':
-        return <BellOutlined className={styles.icon} style={{ color: '#faad14' }} />;
+        return <BellOutlined className={`${styles.icon} ${styles.iconOrange}`} />;
       case 'error':
-        return <BellOutlined className={styles.icon} style={{ color: '#ff4d4f' }} />;
+        return <BellOutlined className={`${styles.icon} ${styles.iconRed}`} />;
       case 'info':
-        return <BellOutlined className={styles.icon} style={{ color: '#1890ff' }} />;
+        return <BellOutlined className={`${styles.icon} ${styles.iconBlue}`} />;
       default:
-        return <BellOutlined className={styles.icon} style={{ color: '#262626' }} />;
+        return <BellOutlined className={`${styles.icon} ${styles.iconDark}`} />;
     }
   };
 

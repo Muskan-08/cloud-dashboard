@@ -46,6 +46,33 @@ interface ConsolidatedData {
   stats: DashboardStats;
 }
 
+// Function to create a new server
+export const createNewServer = (
+  name: string,
+  region: string,
+  account: string
+): Server => {
+  const newServer: Server = {
+    id: String(Date.now()), // Use timestamp as a simple unique ID
+    name,
+    status: 'online',
+    region,
+    account,
+    cpu: getRandomValue(20, 60),
+    memory: getRandomValue(30, 70),
+    disk: getRandomValue(40, 80),
+    network: getRandomValue(25, 65),
+    uptime: getRandomValue(0, 100), // Between 0% and 100%
+    lastUpdated: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+  };
+
+  // Initialize metrics for the new server
+  hourlyMetrics[newServer.id] = generateTimeSeriesData('hourly');
+  dailyMetrics[newServer.id] = generateTimeSeriesData('daily');
+
+  return newServer;
+};
+
 // Generate metrics data
 const hourlyMetrics: { [key: string]: any } = {};
 const dailyMetrics: { [key: string]: any } = {};
@@ -55,7 +82,7 @@ export const servers: Server[] = [
     id: '1',
     name: 'web-server-01',
     status: 'online',
-    region: 'us-east-1',
+    region: 'us-north-1',
     account: 'production',
     cpu: 45,
     memory: 67,
@@ -81,7 +108,7 @@ export const servers: Server[] = [
     id: '3',
     name: 'app-server-01',
     status: 'warning',
-    region: 'us-west-2',
+    region: 'us-south-2',
     account: 'staging',
     cpu: 95,
     memory: 88,
@@ -107,7 +134,7 @@ export const servers: Server[] = [
     id: '5',
     name: 'load-balancer-01',
     status: 'maintenance',
-    region: 'us-east-1',
+    region: 'us-north-1',
     account: 'production',
     cpu: 12,
     memory: 23,
@@ -120,7 +147,7 @@ export const servers: Server[] = [
     id: '6',
     name: 'monitoring-server-01',
     status: 'online',
-    region: 'us-west-2',
+    region: 'us-south-2',
     account: 'monitoring',
     cpu: 23,
     memory: 45,
@@ -225,7 +252,7 @@ servers.forEach(server => {
 
 // Regional metrics data
 const regionalMetrics: { [key: string]: any } = {
-  'us-east-1': {
+  'us-north-1': {
     servers: 12,
     performance: 95,
     latency: 25,
@@ -236,7 +263,7 @@ const regionalMetrics: { [key: string]: any } = {
       network: 88
     }
   },
-  'us-west-2': {
+  'us-south-2': {
     servers: 8,
     performance: 92,
     latency: 45,
@@ -247,7 +274,7 @@ const regionalMetrics: { [key: string]: any } = {
       network: 76
     }
   },
-  'eu-west-1': {
+  'eu-south-1': {
     servers: 6,
     performance: 88,
     latency: 85,
@@ -268,7 +295,8 @@ const stats: DashboardStats = {
   warningServers: servers.filter(s => s.status === 'warning').length,
   totalAlerts: notifications.filter(n => !n.read).length,
   averageCpu: Math.round(servers.reduce((acc, s) => acc + s.cpu, 0) / servers.length),
-  averageMemory: Math.round(servers.reduce((acc, s) => acc + s.memory, 0) / servers.length)
+  averageMemory: Math.round(servers.reduce((acc, s) => acc + s.memory, 0) / servers.length),
+  uptime: 0
 };
 
 // Helper function for time series data

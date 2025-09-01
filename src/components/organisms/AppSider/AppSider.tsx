@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from 'antd';
-import SidebarMenu from '../../molecules/SidebarMenu';
+import SidebarMenu from '../../molecules/SideBarMenu/SidebarMenu';
 
 const { Sider } = Layout;
 

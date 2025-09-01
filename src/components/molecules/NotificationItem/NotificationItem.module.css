@@ -8,6 +8,26 @@
   background-color: transparent;
 }
 
+.icon {
+  color: #1890ff;
+}
+
+.successIcon {
+  color: #52c41a;
+}
+
+.warningIcon {
+  color: #faad14;
+}
+
+.errorIcon {
+  color: #ff4d4f;
+}
+
+.infoIcon {
+  color: #1890ff;
+}
+
 .notificationItem:hover {
   background-color: rgba(0, 0, 0, 0.04);
 }
