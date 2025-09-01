@@ -1,0 +1,8 @@
+.select {
+  min-width: 140px;
+  max-width: 200px;
+}
+
+.select :global(.ant-select-selection-item) {
+  font-weight: 500;
+}

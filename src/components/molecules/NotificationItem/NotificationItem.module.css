@@ -1,0 +1,59 @@
+.notificationItem {
+  display: flex;
+  padding: 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  gap: 12px;
+  background-color: transparent;
+}
+
+.notificationItem:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.unread {
+  background-color: rgba(24, 144, 255, 0.06);
+}
+
+.unread:hover {
+  background-color: rgba(24, 144, 255, 0.1);
+}
+
+.avatar {
+  flex-shrink: 0;
+  background-color: rgba(0, 0, 0, 0.02) !important;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+}
+
+.timestamp {
+  flex-shrink: 0;
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+.message {
+  margin: 0;
+  font-size: 14px;
+  color: #8c8c8c;
+}
+
+.notificationItem {
+  --background-color: transparent;
+  --hover-color: rgba(0, 0, 0, 0.04);
+  --unread-bg-color: rgba(24, 144, 255, 0.06);
+  --unread-hover-bg-color: rgba(24, 144, 255, 0.1);
+  --avatar-bg-color: rgba(0, 0, 0, 0.02);
+  --text-color-secondary: rgba(0, 0, 0, 0.65);
+}

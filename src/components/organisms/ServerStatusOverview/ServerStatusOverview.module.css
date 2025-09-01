@@ -1,0 +1,81 @@
+.serverStatusOverview {
+  margin-bottom: 24px;
+}
+
+.serverStatusOverview h2 {
+  margin-bottom: 16px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.noData {
+  text-align: center;
+  padding: 32px;
+  background: #fff;
+  border-radius: 8px;
+  color: #8c8c8c;
+  font-size: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.serverCard {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  height: 100%;
+}
+
+.serverHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.serverHeader h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1f1f1f;
+}
+
+.metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.metricItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #fafafa;
+  border-radius: 6px;
+}
+
+.metricLabel {
+  color: #595959;
+  font-size: 14px;
+}
+
+.metricValue {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.status {
+  margin-top: 4px;
+  background: #f0f0f0;
+}
+
+.online {
+  color: #52c41a;
+  font-weight: 500;
+}
+
+.offline {
+  color: #ff4d4f;
+  font-weight: 500;
+}

@@ -1,0 +1,54 @@
+.header {
+  background: #fff;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  /* gap: 12px; */
+}
+
+.logo {
+  width: 70px;
+  height: 90px;
+  /* object-fit: contain; */
+}
+
+.title {
+  margin: 0;
+  color: #4096ff !important;
+  font-weight: 600;
+}
+
+.filterMenu {
+  padding: 8px;
+}
+
+.filterSection {
+  margin-bottom: 8px;
+}
+
+.filterLabel {
+  font-size: 12px;
+  color: #666;
+}
+
+.filterSelect {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.filterActions {
+  display: flex;
+  gap: 8px;
+}
+
+.notificationButton {
+  font-size: 18px;
+}

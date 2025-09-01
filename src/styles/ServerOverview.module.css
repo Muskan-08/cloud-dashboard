@@ -1,0 +1,18 @@
+.container {
+  padding: 24px;
+}
+
+.searchRow {
+  margin-bottom: 24px;
+}
+
+.metricsRow {
+  margin-top: 24px;
+}
+
+.container h1 {
+  margin-bottom: 24px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
