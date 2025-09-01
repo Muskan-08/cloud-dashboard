@@ -24,13 +24,13 @@ interface NotificationItemProps {
 const getNotificationIcon = (type: Notification['type']) => {
   switch (type) {
     case 'success':
-      return <CheckCircleOutlined style={{ color: '#52c41a' }} />;
+      return <CheckCircleOutlined className={styles.successIcon} />;
     case 'warning':
-      return <WarningOutlined style={{ color: '#faad14' }} />;
+      return <WarningOutlined className={styles.warningIcon} />;
     case 'error':
-      return <ExclamationCircleOutlined style={{ color: '#ff4d4f' }} />;
+      return <ExclamationCircleOutlined className={styles.errorIcon} />;
     default:
-      return <InfoCircleOutlined style={{ color: '#1890ff' }} />;
+      return <InfoCircleOutlined className={styles.infoIcon} />;
   }
 };
 

@@ -17,6 +17,10 @@
   margin-bottom: 0px;
 }
 
+.statsRow{
+  margin-top: 24px;
+}
+
 .statsCard :global(.ant-statistic-title) {
   font-size: 13px;
   white-space: nowrap;

@@ -57,8 +57,8 @@ const FilterMenu: React.FC<FilterMenuProps> = ({
           onChange={handleRegionChange}
           allowClear
         >
-          <Option value="us-east-1">US East (N. Virginia)</Option>
-          <Option value="us-west-2">US West (Oregon)</Option>
+          <Option value="us-north-1">US North (N. Virginia)</Option>
+          <Option value="us-south-2">US South (Oregon)</Option>
           <Option value="eu-west-1">Europe (Ireland)</Option>
         </Select>
       </div>

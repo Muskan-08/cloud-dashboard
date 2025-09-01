@@ -31,8 +31,8 @@ export const NOTIFICATION_TYPES = {
 
 // Regions
 export const REGIONS = {
-  US_EAST_1: 'us-east-1',
-  US_WEST_2: 'us-west-2',
+  US_EAST_1: 'us-north-1',
+  US_WEST_2: 'us-south-2',
   EU_WEST_1: 'eu-west-1'
 } as const;
 

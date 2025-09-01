@@ -1,6 +1,7 @@
 import { Card } from 'antd';
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import styles from './RegionalApdexDistribution.module.css';
 
 interface GeographicApdexData {
   region: string;
@@ -31,7 +32,7 @@ export function RegionalApdexDistribution({ data }: RegionalApdexDistributionPro
   return (
 
     <Card title="Regional Apdex Distribution">
-      <div style={{ width: '100%', height: '300px' }}>
+      <div className={styles.container}>
         <ResponsiveContainer>
           <PieChart>
             <Pie

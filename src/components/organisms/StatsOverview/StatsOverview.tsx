@@ -10,8 +10,8 @@ import {
   ExclamationCircleOutlined,
   StopOutlined,
 } from '@ant-design/icons';
-import { generateTimeSeriesData } from '../../data/mockData';
-import { DashboardStats } from '../../types';
+import { generateTimeSeriesData } from '../../../data/mockData';
+import { DashboardStats } from '../../../types';
 import styles from './StatsOverview.module.css';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as ChartTooltip, ResponsiveContainer, Legend } from 'recharts';
 
@@ -40,7 +40,7 @@ const StatsOverview: React.FC<StatsOverviewProps> = ({ stats }) => {
             <Statistic 
               title="Total Servers" 
               value={stats.totalServers} 
-              prefix={<CloudServerOutlined style={{ color: '#1890ff' }} />}
+              prefix={<CloudServerOutlined className={styles.blue} />}
               valueStyle={{ color: '#1890ff' }}
               formatter={(value) => (
                 <CountUp end={Number(value)} duration={2} separator="," />
@@ -49,11 +49,11 @@ const StatsOverview: React.FC<StatsOverviewProps> = ({ stats }) => {
           </Card>
         </Col>
         <Col xs={12} sm={8} md={6} lg={4}>
-          <Card hoverable className={styles.statsCard} bodyStyle={{ borderLeft: '4px solid #52c41a' }}>
+          <Card hoverable className={`${styles.statsCard} ${styles.cardBorderGreen}`}>
             <Statistic 
               title="Online" 
               value={stats.onlineServers} 
-              prefix={<CheckCircleOutlined style={{ color: '#52c41a' }} />}
+              prefix={<CheckCircleOutlined className={styles.green} />}
               valueStyle={{ color: '#52c41a' }}
               formatter={(value) => (
                 <CountUp end={Number(value)} duration={2} separator="," />
@@ -62,11 +62,11 @@ const StatsOverview: React.FC<StatsOverviewProps> = ({ stats }) => {
           </Card>
         </Col>
         <Col xs={12} sm={8} md={6} lg={4}>
-          <Card hoverable className={styles.statsCard} bodyStyle={{ borderLeft: '4px solid #faad14' }}>
+          <Card hoverable className={`${styles.statsCard} ${styles.cardBorderOrange}`}>
             <Statistic 
               title="Warning" 
               value={stats.warningServers} 
-              prefix={<ExclamationCircleOutlined style={{ color: '#faad14' }} />}
+              prefix={<ExclamationCircleOutlined className={styles.orange} />}
               valueStyle={{ color: '#faad14' }}
               formatter={(value) => (
                 <CountUp end={Number(value)} duration={2} separator="," />
@@ -75,11 +75,11 @@ const StatsOverview: React.FC<StatsOverviewProps> = ({ stats }) => {
           </Card>
         </Col>
         <Col xs={12} sm={8} md={6} lg={4}>
-          <Card hoverable className={styles.statsCard} bodyStyle={{ borderLeft: '4px solid #ff4d4f' }}>
+          <Card hoverable className={`${styles.statsCard} ${styles.cardBorderRed}`}>
             <Statistic 
               title="Offline" 
               value={stats.offlineServers} 
-              prefix={<StopOutlined style={{ color: '#ff4d4f' }} />}
+              prefix={<StopOutlined className={styles.red} />}
               valueStyle={{ color: '#ff4d4f' }}
               formatter={(value) => (
                 <CountUp end={Number(value)} duration={2} separator="," />
@@ -93,7 +93,7 @@ const StatsOverview: React.FC<StatsOverviewProps> = ({ stats }) => {
               title="Avg CPU" 
               value={stats.averageCpu} 
               // suffix="%" 
-              prefix={<DashboardOutlined style={{ color: '#1890ff' }} />}
+              prefix={<DashboardOutlined className={styles.blue} />}
               valueStyle={{ color: '#1890ff' }}
               formatter={(value) => (
                 <CountUp end={Number(value)} duration={2} decimals={1} suffix="%" />
@@ -107,7 +107,7 @@ const StatsOverview: React.FC<StatsOverviewProps> = ({ stats }) => {
               title="Avg Memory" 
               value={stats.averageMemory} 
               // suffix="%" 
-              prefix={<DatabaseOutlined style={{ color: '#1890ff' }} />}
+              prefix={<DatabaseOutlined className={styles.blue} />}
               valueStyle={{ color: '#1890ff' }}
               formatter={(value) => (
                 <CountUp end={Number(value)} duration={2} decimals={1} suffix="%" />
@@ -118,7 +118,7 @@ const StatsOverview: React.FC<StatsOverviewProps> = ({ stats }) => {
       </Row>
 
       {/* Charts Section */}
-      <Row gutter={[16, 16]} style={{ marginTop: 24 }}>
+      <Row gutter={[16, 16]} className={styles.statsRow}>
         <Col xs={24} md={24}>
           <Card title="CPU & Memory Usage" className={styles.chartCard}>
             <ResponsiveContainer width="100%" height={250}>

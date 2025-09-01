@@ -5,8 +5,8 @@ import {
   AlertOutlined,
   QuestionCircleOutlined,
 } from '@ant-design/icons';
-import MenuSection from './MenuSection/MenuSection';
-import HelpSupportModal from './HelpSupportModal/HelpSupportModal';
+import MenuSection from '../MenuSection/MenuSection';
+import HelpSupportModal from '../HelpSupportModal/HelpSupportModal';
 import styles from './SidebarMenu.module.css';
 
 interface SidebarMenuProps {

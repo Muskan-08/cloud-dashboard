@@ -23,6 +23,7 @@ const initialState: DashboardState = {
     totalAlerts: 0,
     averageCpu: 0,
     averageMemory: 0,
+    uptime: 0
   },
   loading: true, // Start with loading true
   error: null,

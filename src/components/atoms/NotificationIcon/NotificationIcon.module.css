@@ -4,3 +4,23 @@
   align-items: center;
   justify-content: center;
 }
+
+.iconGreen {
+  color: #52c41a;
+}
+
+.iconOrange {
+  color: #faad14;
+}
+
+.iconRed {
+  color: #ff4d4f;
+}
+
+.iconBlue {
+  color: #1890ff;
+}
+
+.iconDark {
+  color: #262626;
+}

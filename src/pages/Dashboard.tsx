@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Layout, Spin, Empty, message, Card } from 'antd';
-import dayjs from 'dayjs';
+import { Layout, Spin, Empty, message } from 'antd';
 const { Content } = Layout;
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import styles from '../styles/Dashboard.module.css';
 
 import { useDashboard } from '../hooks/useDashboard';
 import { 
@@ -10,21 +9,28 @@ import {
   mockNotifications, 
   generateRandomNotification, 
   generateTimeSeriesData,
-  mockRegionalData} from '../data/mockData';
+  mockRegionalData } from '../data/mockData';
 import { Server, ResourceMetrics } from '../types';
+import { 
+  handleServerLink,
+  initializeDashboardData,
+  getGeographicApdexData,
+  getChartData
+} from '../utils/dashboardHelpers';
 
-import NotificationPanel from '../components/organisms/NotificationPanel';
-import StatsOverview from '../components/organisms/StatsOverview';
+import NotificationPanel from '../components/organisms/NotificationPanel/NotificationPanel';
+import StatsOverview from '../components/organisms/StatsOverview/StatsOverview';
 import AppSider from '../components/organisms/AppSider';
 import AppHeader from '../components/organisms/AppHeader';
 
 import RegionPerformance from '../components/molecules/RegionPerformance/RegionPerformance';
 import ResourceTrends from '../components/molecules/ResourceTrends/ResourceTrends';
 import { RegionalApdexDistribution } from '../components/molecules/RegionalApdexDistribution/RegionalApdexDistribution';
+import { ActiveAlerts } from '../components/molecules/ActiveAlerts/ActiveAlerts';
 
 const Dashboard: React.FC = () => {
   const {
-
+    servers,
     loading,
     error,
     setServers,
@@ -38,59 +44,31 @@ const Dashboard: React.FC = () => {
     unreadNotifications,
   } = useDashboard();
 
-  // State for managing selected server and its metrics
+  const handleServerLinked = (serverData: Omit<Server, 'id' | 'status' | 'cpu' | 'memory' | 'disk' | 'network' | 'uptime' | 'lastUpdated'>) => {
+    handleServerLink(serverData, servers, stats, setServers, setStats);
+  };
+
   const [selectedServer, _setSelectedServer] = useState<Server | null>(null);
   const [_serverMetrics, setServerMetrics] = useState<ResourceMetrics[]>([]);
   const [collapsed, setCollapsed] = useState(true);
   const [notificationDrawerOpen, setNotificationDrawerOpen] = useState(false);
 
-  // Transform the data for the Regional Apdex Distribution chart
-  const geographicApdexData = React.useMemo(() => [
-    { region: 'North America', apdex: 0.50, servers: 20 },
-    { region: 'Europe', apdex: 0.89, servers: 15 },
-    { region: 'Asia Pacific', apdex: 0.88, servers: 18 },
-    { region: 'South America', apdex: 0.85, servers: 8 }
-  ], []);
+  const geographicApdexData = React.useMemo(() => getGeographicApdexData(), []);
 
-  // Generate time series data for alerts
-  const chartData = React.useMemo(() => {
-    return generateTimeSeriesData('hourly').map(data => ({
-      name: dayjs(data.timestamp).format('HH:mm'),
-      alerts: data.alerts
-    }));
-  }, []);
+  const chartData = React.useMemo(() => getChartData(generateTimeSeriesData), []);
 
   const initializeData = useCallback(async () => {
-    try {
-      setLoading(true);
-      setServers(mockServers);
-      setNotifications(mockNotifications);
-      
-      // Calculate stats after setting data
-      const totalServers = mockServers.length;
-      const onlineServers = mockServers.filter(s => s.status === 'online').length;
-      const offlineServers = mockServers.filter(s => s.status === 'offline').length;
-      const warningServers = mockServers.filter(s => s.status === 'warning').length;
-      const totalAlerts = mockNotifications.filter(n => !n.read).length;
-      const averageCpu = mockServers.reduce((sum, s) => sum + s.cpu, 0) / totalServers;
-      const averageMemory = mockServers.reduce((sum, s) => sum + s.memory, 0) / totalServers;
-      
-      setStats({
-        totalServers,
-        onlineServers,
-        offlineServers,
-        warningServers,
-        totalAlerts,
-        averageCpu: Math.round(averageCpu),
-        averageMemory: Math.round(averageMemory),
-      });
-    } catch (err) {
-      setError('Failed to load dashboard data');
-      message.error('Failed to load dashboard data');
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    await initializeDashboardData(
+      servers,
+      mockServers,
+      mockNotifications,
+      setLoading,
+      setServers,
+      setNotifications,
+      setStats,
+      setError
+    );
+  }, [servers]);
 
   useEffect(() => {
     initializeData();
@@ -107,7 +85,6 @@ const Dashboard: React.FC = () => {
     return () => clearInterval(metricsInterval);
   }, [selectedServer]);
 
-  // Simulated real-time notifications
   useEffect(() => {
     const notificationInterval = setInterval(() => {
       if (Math.random() < 0.2) {
@@ -123,7 +100,7 @@ const Dashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div className={styles.loadingContainer}>
         <Spin size="large" />
       </div>
     );
@@ -131,7 +108,7 @@ const Dashboard: React.FC = () => {
 
   if (error) {
     return (
-      <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div className={styles.loadingContainer}>
         <Empty description={error} />
       </div>
     );
@@ -139,7 +116,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout className={styles.layout}>
         <AppSider
           collapsed={collapsed}
           onCollapse={setCollapsed}
@@ -150,37 +127,27 @@ const Dashboard: React.FC = () => {
           marginLeft: collapsed ? 80 : 240,
           transition: 'margin-left 0.2s'
         }}>
-          <div style={{ height: 64 }} /> {/* Spacer for fixed header */}
+          <div className={styles.headerSpacer} />
           <AppHeader
             onRefresh={initializeData}
             unreadNotifications={unreadNotifications().length}
             onNotificationsClick={() => setNotificationDrawerOpen(true)}
+            onServerLinked={handleServerLinked}
+            existingServers={servers}
           />
-          <Content style={{ margin: '24px', minHeight: 280 }}>
+          <Content className={styles.contentArea}>
             <StatsOverview stats={stats} />
-            {/* New Visualization Row */}
-            <div style={{ marginTop: '24px', display: 'flex', gap: '24px' }}>
-              <div style={{ flex: '2' }}>
+            <div className={styles.metricsContainer}>
+              <div className={styles.metricsSection}>
                 <RegionalApdexDistribution data={geographicApdexData} />
               </div>
-              <div style={{ flex: '2' }}>
-                <Card title="Active Alerts">
-                  <ResponsiveContainer width="100%" height={250}>
-                    <BarChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Bar dataKey="alerts" fill="#ff4d4f" name="Alerts" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </Card>
+              <div className={styles.metricsSection}>
+                <ActiveAlerts data={chartData} />
               </div>
             </div>
 
-            {/* Performance Comparison and Resource Trends */}
-            <div style={{ display: 'flex', gap: '24px', marginTop: '24px' }}>
-              <div style={{ flex: 1 }}>
+            <div className={styles.statsContainer}>
+              <div className={styles.statsSection}>
                 <RegionPerformance
                   data={mockRegionalData.map(data => ({
                     region: data.region,
@@ -191,7 +158,7 @@ const Dashboard: React.FC = () => {
                   }))}
                 />
               </div>
-              <div style={{ flex: 1 }}>
+              <div className={styles.statsSection2}>
                 <ResourceTrends
                   data={generateTimeSeriesData('hourly').map(data => ({
                     timestamp: data.timestamp,

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Card } from 'antd';
-import { Server } from '../../types';
-import ServerInfo from '../atoms/ServerInfo/ServerInfo';
-import ServerDetails from '../atoms/ServerDetails/ServerDetails';
-import ServerMetrics from './ServerMetrics/ServerMetrics';
-import ServerActions from '../atoms/ServerActions/ServerActions';
+import { Server } from '../../../types';
+import ServerInfo from '../../atoms/ServerInfo/ServerInfo';
+import ServerDetails from '../../atoms/ServerDetails/ServerDetails';
+import ServerMetrics from '../ServerMetrics/ServerMetrics';
+import ServerActions from '../../atoms/ServerActions/ServerActions';
 import styles from './ServerCard.module.css';
 
 interface ServerCardProps {
@@ -35,7 +35,7 @@ const ServerCard: React.FC<ServerCardProps> = ({
       style={{
         border: `2px solid ${getStatusColor(server.status)}20`,
       }}
-      bodyStyle={{ padding: '16px' }}
+      // className={styles.cardBody}
     >
       <div className={styles.content}>
         <ServerInfo

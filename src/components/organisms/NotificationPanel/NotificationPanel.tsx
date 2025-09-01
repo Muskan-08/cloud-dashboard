@@ -1,9 +1,9 @@
 import React from 'react';
 import { Drawer } from 'antd';
-import { Notification } from '../../types';
-import NotificationHeader from '../molecules/NotificationHeader/NotificationHeader';
-import NotificationGroup from '../molecules/NotificationGroup/NotificationGroup';
-import EmptyNotifications from '../atoms/EmptyNotifications/EmptyNotifications';
+import { Notification } from '../../../types';
+import NotificationHeader from '../../molecules/NotificationHeader/NotificationHeader';
+import NotificationGroup from '../../molecules/NotificationGroup/NotificationGroup';
+import EmptyNotifications from '../../atoms/EmptyNotifications/EmptyNotifications';
 import styles from './NotificationPanel.module.css';
 
 interface NotificationPanelProps {
