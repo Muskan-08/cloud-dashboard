@@ -1,11 +1,9 @@
 import { Server, Notification, DashboardStats } from '../types';
 import dayjs from 'dayjs';
 
-// Utility functions
 const getRandomValue = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
-
 
 interface ConsolidatedData {
   servers: Server[];
@@ -45,15 +43,13 @@ interface ConsolidatedData {
   };
   stats: DashboardStats;
 }
-
-// Function to create a new server
 export const createNewServer = (
   name: string,
   region: string,
   account: string
 ): Server => {
   const newServer: Server = {
-    id: String(Date.now()), // Use timestamp as a simple unique ID
+    id: String(Date.now()),
     name,
     status: 'online',
     region,
@@ -62,18 +58,16 @@ export const createNewServer = (
     memory: getRandomValue(30, 70),
     disk: getRandomValue(40, 80),
     network: getRandomValue(25, 65),
-    uptime: getRandomValue(0, 100), // Between 0% and 100%
+    uptime: getRandomValue(0, 100),
     lastUpdated: dayjs().format('YYYY-MM-DD HH:mm:ss'),
   };
 
-  // Initialize metrics for the new server
   hourlyMetrics[newServer.id] = generateTimeSeriesData('hourly');
   dailyMetrics[newServer.id] = generateTimeSeriesData('daily');
 
   return newServer;
 };
 
-// Generate metrics data
 const hourlyMetrics: { [key: string]: any } = {};
 const dailyMetrics: { [key: string]: any } = {};
 
@@ -231,7 +225,6 @@ const notifications: Notification[] = [
   },
 ];
 
-// Generate metrics data for each server
 servers.forEach(server => {
   hourlyMetrics[server.id] = Array.from({ length: 24 }, (_, i) => ({
     timestamp: dayjs().subtract(23 - i, 'hour').format('HH:mm'),
@@ -249,8 +242,6 @@ servers.forEach(server => {
     network: getRandomValue(15, 95)
   }));
 });
-
-// Regional metrics data
 const regionalMetrics: { [key: string]: any } = {
   'us-north-1': {
     servers: 12,
@@ -287,7 +278,6 @@ const regionalMetrics: { [key: string]: any } = {
   }
 };
 
-// Calculate dashboard stats
 const stats: DashboardStats = {
   totalServers: servers.length,
   onlineServers: servers.filter(s => s.status === 'online').length,
@@ -298,8 +288,6 @@ const stats: DashboardStats = {
   averageMemory: Math.round(servers.reduce((acc, s) => acc + s.memory, 0) / servers.length),
   uptime: 0
 };
-
-// Helper function for time series data
 export const generateTimeSeriesData = (timeSpan: 'hourly' | 'daily', days = 1) => {
   const data = [];
   const now = dayjs();
@@ -320,7 +308,6 @@ export const generateTimeSeriesData = (timeSpan: 'hourly' | 'daily', days = 1) =
   return data;
 };
 
-// Generate random notifications
 export const generateRandomNotification = (): Notification => {
   const types: Array<'info' | 'warning' | 'error' | 'success'> = ['info', 'warning', 'error', 'success'];
   const messages = [
@@ -349,7 +336,6 @@ export const generateRandomNotification = (): Notification => {
   };
 };
 
-// Export consolidated mock data
 export const mockData: ConsolidatedData = {
   servers,
   notifications,
@@ -360,8 +346,6 @@ export const mockData: ConsolidatedData = {
   },
   stats
 };
-
-// Export individual elements for backward compatibility
 export const mockServers = servers;
 export const mockNotifications = notifications;
 export const mockRegionalData = Object.entries(regionalMetrics).map(([region, data]) => ({

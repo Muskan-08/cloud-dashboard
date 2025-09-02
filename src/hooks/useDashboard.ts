@@ -21,7 +21,6 @@ export const useDashboard = () => {
   const filteredServers = useSelector(selectFilteredServers);
 
   return {
-    // State
     servers: dashboard.servers,
     notifications: dashboard.notifications,
     filters: dashboard.filters,
@@ -29,8 +28,6 @@ export const useDashboard = () => {
     loading: dashboard.loading,
     error: dashboard.error,
     filteredServers,
-
-    // Actions
     setServers: (servers: Server[]) => dispatch(setServers(servers)),
     setNotifications: (notifications: Notification[]) => dispatch(setNotifications(notifications)),
     addNotification: (notification: Notification) => dispatch(addNotification(notification)),

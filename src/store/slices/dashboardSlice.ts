@@ -25,7 +25,7 @@ const initialState: DashboardState = {
     averageMemory: 0,
     uptime: 0
   },
-  loading: true, // Start with loading true
+  loading: true,
   error: null,
   showNotifications: false,
 };

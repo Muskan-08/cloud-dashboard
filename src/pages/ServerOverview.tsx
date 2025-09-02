@@ -30,8 +30,6 @@ const ServerOverview: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [notificationDrawerOpen, setNotificationDrawerOpen] = useState(false);
   const dispatch = useDispatch();
-  // const { servers, notifications } = useSelector(selectDashboardState);
-
     const {
       servers,
       setServers,
@@ -45,30 +43,21 @@ const ServerOverview: React.FC = () => {
     const handleServerLinked = (serverData: Omit<Server, 'id' | 'status' | 'cpu' | 'memory' | 'disk' | 'network' | 'uptime' | 'lastUpdated'>) => {
       handleServerLink(serverData, servers, stats, setServers, setStats);
     };
-
-  // Filter servers based on search query
   const filteredServers = useMemo(() => filterServers(servers, searchQuery), [servers, searchQuery]);
 
   useEffect(() => {
-    // Initialize servers from mock data if not already present
     if (servers.length === 0) {
       dispatch(setServers(mockServers));
     }
   }, [dispatch, servers.length]);
-  
 
   const handleServerToggle = (serverName: string, newStatus: boolean) => {
     console.log('Toggling server:', serverName, 'to status:', newStatus);
     dispatch(toggleServerStatus({ serverName, status: newStatus }));
   };
 
-  // Transform server data for the line chart
   const chartData = transformChartData(filteredServers, selectedMetric);
-
-  // Configure line chart
   const chartConfig = getChartConfig(chartData);
-
-  // Table columns configuration
   const columns = getTableColumns();
 
   const [collapsed, setCollapsed] = useState(true);

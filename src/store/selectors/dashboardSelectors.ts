@@ -1,8 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-
-// Atomic Selectors - Basic building blocks
 export const selectDashboardState = (state: RootState) => state.dashboard;
 export const selectServers = createSelector(
   [selectDashboardState],
@@ -12,8 +10,6 @@ export const selectFilters = createSelector(
   [selectDashboardState],
   (dashboard) => dashboard.filters
 );
-
-// Molecular Selectors - Filter by specific criteria
 export const selectServersByStatus = createSelector(
   [selectServers, (_, status: string | null) => status],
   (servers, status) => status ? servers.filter(server => server.status === status) : servers
@@ -36,7 +32,6 @@ export const selectServersBySearch = createSelector(
   }
 );
 
-// Organism Selector - Combines all filters
 export const selectFilteredServers = createSelector(
   [selectServers, selectFilters],
   (servers, filters) => {
@@ -61,8 +56,6 @@ export const selectFilteredServers = createSelector(
     return filtered;
   }
 );
-
-// Additional Molecular Selectors for statistics
 export const selectServerStatistics = createSelector(
   [selectServers],
   (servers) => {
@@ -73,10 +66,7 @@ export const selectServerStatistics = createSelector(
     };
 
     servers.forEach(server => {
-      // Count by status
       stats.byStatus[server.status] = (stats.byStatus[server.status] || 0) + 1;
-      
-      // Count by region
       stats.byRegion[server.region] = (stats.byRegion[server.region] || 0) + 1;
     });
 

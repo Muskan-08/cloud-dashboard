@@ -12,7 +12,6 @@ const HelpSupportModal: React.FC<HelpSupportModalProps> = ({ isOpen, onClose }) 
 
   const handleSubmit = async (values: any) => {
     try {
-      // Here you can implement the logic to handle form submission
       console.log('Form submitted:', values);
       message.success('Your message has been sent successfully!');
       form.resetFields();
