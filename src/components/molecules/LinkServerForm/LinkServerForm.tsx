@@ -14,16 +14,13 @@ const LinkServerForm: React.FC<LinkServerFormProps> = ({
   visible,
   onCancel,
   onSubmit,
-  existingServers = [], // Provide empty array as default
+  existingServers = [],
 }) => {
   const [form] = Form.useForm();
 
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
-      
-      // Check if server with same name already exists
-      // Check for duplicate server names if existingServers is provided
       const serverExists = existingServers?.some(
         server => server.name.toLowerCase() === values.name.toLowerCase()
       );

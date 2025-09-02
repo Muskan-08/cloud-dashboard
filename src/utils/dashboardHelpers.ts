@@ -17,14 +17,12 @@ export const handleServerLink = (
       serverData.account
     );
     
-    // Update the servers state with the new one
     setServers([...currentServers, newServer]);
     
     message.success(`Server ${newServer.name} has been linked successfully!`);
     
-    // Update stats after adding new server
     const totalServers = currentServers.length + 1;
-    const onlineServers = currentServers.filter(s => s.status === 'online').length + 1; // New server is online
+    const onlineServers = currentServers.filter(s => s.status === 'online').length + 1;
     const offlineServers = currentServers.filter(s => s.status === 'offline').length;
     const warningServers = currentServers.filter(s => s.status === 'warning').length;
     const averageCpu = (currentServers.reduce((sum, s) => sum + s.cpu, 0) + newServer.cpu) / totalServers;
@@ -61,14 +59,12 @@ export const initializeDashboardData = async (
   try {
     setLoading(true);
     
-    // Only initialize servers if we don't have any
     if (servers.length === 0) {
       setServers(mockServers);
     }
     
     setNotifications(mockNotifications);
     
-    // Use current servers state instead of mockServers for calculations
     const currentServers = servers.length > 0 ? servers : mockServers;
     const totalServers = currentServers.length;
     const onlineServers = currentServers.filter(s => s.status === 'online').length;

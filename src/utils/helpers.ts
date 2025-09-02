@@ -1,7 +1,6 @@
 import { Server } from '../types';
 import { STATUS } from '../constants';
 
-// Get status color based on server status
 export const getStatusColor = (status: string): string => {
   switch (status) {
     case STATUS.ONLINE:
@@ -15,7 +14,6 @@ export const getStatusColor = (status: string): string => {
   }
 };
 
-// Format large numbers
 export const formatNumber = (num: number): string => {
   if (num >= 1000000) {
     return `${(num / 1000000).toFixed(1)}M`;
@@ -26,7 +24,6 @@ export const formatNumber = (num: number): string => {
   return num.toString();
 };
 
-// Calculate server health percentage
 export const calculateServerHealth = (server: Server): number => {
   const weights = {
     cpu: 0.3,
@@ -48,12 +45,9 @@ export const calculateServerHealth = (server: Server): number => {
   );
 };
 
-// Format uptime percentage
 export const formatUptime = (uptime: number): string => {
   return `${uptime.toFixed(2)}%`;
 };
-
-// Format date relative to now
 export const formatRelativeTime = (date: string): string => {
   const now = new Date();
   const then = new Date(date);

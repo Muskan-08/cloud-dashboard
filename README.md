@@ -56,31 +56,6 @@ src/
 - **Left Sidebar**: Quick access to Dashboard, Services, Monitoring, Cloud, Reports, and Infrastructure
 - **Collapsible Sidebar**: Expandable navigation with tooltips
 
-### 📊 **Dashboard Widgets**
-
-#### Column 1: Quick Overview
-- **Problems**: Real-time problem count with status indicators
-- **Hosts**: Host status monitoring with warning badges
-- **Web Checks**: Web service health status
-- **Applications**: Application health monitoring
-- **Services**: Service status with hexagonal grid visualization
-- **Databases**: Database health indicators
-- **Smartscape**: Process visualization with gradient graphics
-
-#### Column 2: Cloud & Infrastructure
-- **AWS Account**: EC2, RDS, and Load Balancer metrics
-- **VMware vCenter**: Migration and guest statistics
-- **Database**: Transaction rates and response times
-- **Docker**: Container and image monitoring with progress bars
-
-#### Column 3: Application Health
-- **Action Duration**: Geographic performance visualization
-- **Services**: Web, messaging, and RMI service metrics with bar charts
-
-#### Column 4: User Experience
-- **Apdex**: Application Performance Index with regional mapping
-- **3rd Party Providers**: Stacked bar charts showing external service usage
-
 ### 📈 **Advanced Charts & Metrics**
 - **Line Charts**: CPU, memory, and disk usage over time
 - **Area Charts**: Regional performance metrics
@@ -196,15 +171,6 @@ The application follows a robust architecture combining atomic design principles
 
 ## Customization
 
-### Theme Colors
-The dashboard uses a dark theme with the following color palette:
-- **Primary**: #1890ff (Blue)
-- **Background**: #1a1a1a (Dark)
-- **Surface**: #2a2a2a (Medium Dark)
-- **Border**: #404040 (Medium)
-- **Text**: #ffffff (White)
-- **Secondary Text**: #666666 (Gray)
-
 ### Adding New Metrics
 1. Extend the types in `src/types/`
 2. Add mock data in `src/data/mockData.ts`
@@ -219,6 +185,3 @@ The dashboard uses a dark theme with the following color palette:
 4. Add tests if applicable
 5. Submit a pull request
 
-## License
-
-MIT License - see LICENSE file for details

@@ -29,7 +29,6 @@ describe('MetricCard', () => {
     
     expect(screen.getByText('Network')).toBeInTheDocument();
     expect(screen.getByText('60%')).toBeInTheDocument();
-    // Progress bar should not be rendered
     expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
   });
 

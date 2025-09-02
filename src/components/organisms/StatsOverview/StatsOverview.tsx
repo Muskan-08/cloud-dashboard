@@ -33,7 +33,6 @@ const StatsOverview: React.FC<StatsOverviewProps> = ({ stats }) => {
 
   return (
     <div className={styles.statsContainer}>
-      {/* Summary Bar */}
       <Row gutter={[16, 16]} className={styles.summaryBar}>
         <Col xs={12} sm={8} md={6} lg={4}>
           <Card hoverable className={styles.statsCard}>
@@ -92,7 +91,6 @@ const StatsOverview: React.FC<StatsOverviewProps> = ({ stats }) => {
             <Statistic 
               title="Avg CPU" 
               value={stats.averageCpu} 
-              // suffix="%" 
               prefix={<DashboardOutlined className={styles.blue} />}
               valueStyle={{ color: '#1890ff' }}
               formatter={(value) => (
@@ -106,7 +104,6 @@ const StatsOverview: React.FC<StatsOverviewProps> = ({ stats }) => {
             <Statistic 
               title="Avg Memory" 
               value={stats.averageMemory} 
-              // suffix="%" 
               prefix={<DatabaseOutlined className={styles.blue} />}
               valueStyle={{ color: '#1890ff' }}
               formatter={(value) => (
@@ -117,7 +114,6 @@ const StatsOverview: React.FC<StatsOverviewProps> = ({ stats }) => {
         </Col>
       </Row>
 
-      {/* Charts Section */}
       <Row gutter={[16, 16]} className={styles.statsRow}>
         <Col xs={24} md={24}>
           <Card title="CPU & Memory Usage" className={styles.chartCard}>
